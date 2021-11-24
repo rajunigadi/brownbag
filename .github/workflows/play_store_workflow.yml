@@ -1,9 +1,11 @@
-name: Generate Release Build
+name: Release Build
 
 on:
   push:
     tags:
       - 'v*'
+    branches:
+      - 'master'
 
 jobs:
   build:
@@ -11,6 +13,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      - name: Generate Debug APK
+        run: ./gradlew assembleDebug
       - name: Generate Release APK
         run: ./gradlew assembleRelease
       - name: Sign APK

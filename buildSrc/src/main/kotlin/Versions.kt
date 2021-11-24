@@ -2,8 +2,9 @@ import org.gradle.api.JavaVersion
 
 object Versions {
     object App {
-        const val VERSION_CODE = 1
-        const val VERSION_NAME = "1.0"
+        private val versions = GitVersions.getVersion()
+        val VERSION_CODE = versions[0].toString().toInt()
+        val VERSION_NAME = versions[1].toString()
         const val MIN_SDK = 21
         const val TARGET_SDK = 30
         const val COMPILE_SDK = 30

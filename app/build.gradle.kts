@@ -1,7 +1,6 @@
 import Dependencies.common
 import Dependencies.commonIntegrationTest
 import Dependencies.compose
-import org.jetbrains.kotlin.konan.properties.Properties
 
 plugins {
     id(Plugins.ANDROID_APPLICATION)
