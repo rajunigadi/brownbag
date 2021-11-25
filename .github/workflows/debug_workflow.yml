@@ -15,7 +15,8 @@ jobs:
         run: git fetch --prune --unshallow --tags
       - name: Generate Debug APK
         run: ./gradlew assembleDebug
-      - uses: actions/upload-artifact@master
+      - name: Upload APK
+        uses: actions/upload-artifact@master
         with:
           name: debug.apk
           path: app/build/outputs/apk/debug/*.apk
