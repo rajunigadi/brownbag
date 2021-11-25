@@ -2,6 +2,8 @@ name: "Publish new release"
 
 on:
   pull_request:
+    tags:
+      - 'v*'
     branches:
       - master
     types:
