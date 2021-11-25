@@ -14,13 +14,17 @@ object GitVersions {
 
     fun getVersion(): List<Any> {
         var verName = gitTag()
+        println("Versions: $verName") //v0.1-1-g51bbcb0
         if (verName.isEmpty()) {
             verName = gitSha()
         }
         var tagSubversion = ""
         if (verName.count{ verName.contains("-") } > 1) {
             tagSubversion = verName.substring(verName.indexOf("-") + 1, verName.lastIndexOf("-"))
-            verName = verName.substring(0, verName.indexOf("-"))
+            println("tagSubversion: $tagSubversion") //v0.1-1-g51bbcb0
+            verName = verName.substring(0, verName.indexOf("-"))// + "." + tagSubversion
+            verName += "-SNAPSHOT"
+            println("verName: $verName") //v0.1-1-g51bbcb0
         } else {
             if (verName.count{ verName.contains(".")} < 2) {
                 verName += if (verName.count{ verName.contains(".") } < 1) {
@@ -37,7 +41,7 @@ object GitVersions {
             .replace("RC","")
             .replace("v","")
             .replace("SNAPSHOT","")
-        if(verCode == "00") {
+        if(verCode == "00" || verCode == "0") {
             verCode = "1"
         }
         println("Versions: $verName : $verCode")
