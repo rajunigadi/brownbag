@@ -17,6 +17,7 @@ object GitVersions {
         println("Versions: $verName") //v0.1-1-g51bbcb0
         if (verName.isEmpty()) {
             verName = gitSha()
+            println("gitSha: $verName") //v0.1-1-g51bbcb0
         }
         var tagSubversion = ""
         if (verName.count{ verName.contains("-") } > 1) {
