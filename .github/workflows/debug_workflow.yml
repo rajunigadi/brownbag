@@ -2,8 +2,8 @@ name: Debug Build
 
 on:
   push:
-    tags:
-      - 'v*'
+    branches:
+      - '*'
 
 jobs:
   build:
