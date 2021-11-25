@@ -21,14 +21,18 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        setProperty("archivesBaseName", "Brownbag-$versionName($versionCode)")
     }
 
     signingConfigs {
         create("release") {
+            val alias: String by project
+            val aliasPassword: String by project
+            val password: String by project
             storeFile = file("${project.rootDir}/keystore/brownbag.jks")
-            storePassword = "brownbag@2021"
-            keyAlias = "brownbag"
-            keyPassword = "brownbag@2021"
+            storePassword = password
+            keyAlias = alias
+            keyPassword = aliasPassword
         }
     }
 

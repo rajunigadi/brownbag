@@ -26,7 +26,7 @@ object GitVersions {
             tagSubversion = verName.substring(verName.indexOf("-") + 1, verName.lastIndexOf("-"))
             println("tagSubversion: $tagSubversion") //v0.1-1-g51bbcb0
             verName = verName.substring(0, verName.indexOf("-"))// + "." + tagSubversion
-            verName += "-SNAPSHOT"
+            //verName += "-SNAPSHOT"
             println("verName: $verName") //v0.1-1-g51bbcb0
         } else {
             if (verName.count{ verName.contains(".")} < 2) {
