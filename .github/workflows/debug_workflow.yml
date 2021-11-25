@@ -1,0 +1,25 @@
+name: Release Build
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Tags
+        run: git fetch --prune --unshallow --tags
+      - name: Generate Debug APK
+        run: ./gradlew assembleDebug
+      - uses: actions/upload-artifact@master
+        with:
+          name: debug.apk
+          path: app/build/outputs/apk/release/*.apk
+      - uses: actions/upload-artifact@master
+        with:
+          name: mapping.txt
+          path: app/build/outputs/mapping/release/mapping.txt
