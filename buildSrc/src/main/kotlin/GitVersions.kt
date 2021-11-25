@@ -9,7 +9,9 @@ object GitVersions {
 
     private fun gitTag(): String {
         "git fetch --tags".runCommand()
-        return "git describe --tags".runCommand()
+        val des = "git describe --tags".runCommand()
+        println("des: $des") //g51bbcb0
+        return des
     }
 
     fun getVersion(): List<Any> {
