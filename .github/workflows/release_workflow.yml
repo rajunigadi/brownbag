@@ -2,11 +2,9 @@ name: Release Build
 
 on:
   push:
-    tags:
-      - 'v*'
     branches:
       - master
-      - develop
+      #- develop
 
 jobs:
   build:
