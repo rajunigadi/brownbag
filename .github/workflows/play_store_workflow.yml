@@ -15,7 +15,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Tags
-        run: git fetch --prune --unshallow
+        run: git fetch --prune --unshallow --tags
       - name: Generate Release APK
         run: ./gradlew assembleRelease
       - name: Sign APK
