@@ -17,15 +17,13 @@ jobs:
         run: git fetch --prune --unshallow --tags
 
       - name: Generate debug build
-          env:
-            VERSION_CODE: ${{ github.run_number}}
-          run: ./gradlew clean assembleDebug
+        run: ./gradlew clean assembleDebug
 
-          - name: Upload debug build
-            uses: actions/upload-artifact@master
-            with:
-              name: Brownbag-debug.apk
-              path: app/build/outputs/apk/debug/*.apk
+      - name: Upload debug build
+        uses: actions/upload-artifact@master
+        with:
+            name: Brownbag-debug.apk
+            path: app/build/outputs/apk/debug/*.apk
 
       - name: Generate release build
         env:
