@@ -1,6 +1,12 @@
 #!/bin/sh
 
 # Adapted from https://proandroiddev.com/ooga-chaka-git-hooks-to-enforce-code-quality-11ce8d0d23cb
+current_branch=`git rev-parse --abbrev-ref HEAD`
+if [[ $current_branch =~ master|main ]]; then
+    message="Please don't commit directly to $current_branch."
+    echo -e "\033[1;31mERROR: $message\033[0m";
+    exit 1
+fi
 
 echo "Checking code formatting..."
 
