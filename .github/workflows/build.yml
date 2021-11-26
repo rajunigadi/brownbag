@@ -1,24 +1,38 @@
-name: Release Build
+name: Build
 
 on:
   push:
     branches:
       - master
-      #- develop
+      - develop
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout the code
         uses: actions/checkout@v2
+
       - name: Tags
         run: git fetch --prune --unshallow --tags
-      - name: Generate Release APK
+
+      - name: Generate debug build
+          env:
+            VERSION_CODE: ${{ github.run_number}}
+          run: ./gradlew clean assembleDebug
+
+          - name: Upload debug build
+            uses: actions/upload-artifact@master
+            with:
+              name: Brownbag-debug.apk
+              path: app/build/outputs/apk/debug/*.apk
+
+      - name: Generate release build
         env:
           VERSION_CODE: ${{ github.run_number}}
-        run: ./gradlew assembleRelease
-      - name: Sign APK
+        run: ./gradlew clean assembleRelease
+
+      - name: Sign release build
         uses: r0adkll/sign-android-release@v1
         # ID used to access action output
         id: sign_app
@@ -28,11 +42,15 @@ jobs:
           alias: ${{ secrets.ALIAS }}
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
           keyPassword: ${{ secrets.ALIAS_PASSWORD }}
-      - uses: actions/upload-artifact@master
+
+      - name: Upload release build
+        uses: actions/upload-artifact@master
         with:
-          name: release.apk
+          name: Brownbag-release.apk
           path: ${{steps.sign_app.outputs.signedReleaseFile}}
-      - uses: actions/upload-artifact@master
+
+      - name: Upload release mapping file
+        uses: actions/upload-artifact@master
         with:
           name: mapping.txt
           path: app/build/outputs/mapping/release/mapping.txt
