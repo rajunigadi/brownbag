@@ -20,3 +20,23 @@ buildscript {
 tasks.register("clean", Delete::class) {
     delete(rootProject.buildDir)
 }
+
+tasks.register("installGitHook", Copy::class) {
+    from(file("${rootProject.rootDir}/pre-commit"))
+    into(file("${rootProject.rootDir}.git/hooks"))
+    fileMode = 777
+}
+
+tasks.getByPath(":app:preBuild").dependsOn(tasks.getByPath("installGitHook"))
+tasks.getByPath(":app:clean").dependsOn(tasks.getByPath("installGitHook"))
+tasks.getByPath(":app:assemble").dependsOn(tasks.getByPath("installGitHook"))
+
+/*task installGitHook(type: Copy) {
+    from new File(rootProject.rootDir, 'pre-commit')
+    into { new File(rootProject.rootDir, '.git/hooks') }
+    fileMode 0777
+}*/
+
+//tasks.getByPath(':app:preBuild').dependsOn installGitHook
+//tasks.getByPath(':app:clean').dependsOn installGitHook 
+//tasks.getByPath(':app:assemble').dependsOn installGitHook
