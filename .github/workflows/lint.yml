@@ -9,16 +9,17 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout the code
         uses: actions/checkout@v2
-      - name: Tags
+
+      - name: Fetch rlease tags
         run: git fetch --prune --unshallow --tags
-      - name: Generate Debug APK
-        env:
-          VERSION_CODE: ${{ github.run_number}}
-        run: ./gradlew lint
-      - name: Upload APK
+
+      - name: Generate lint reports
+        run: ./gradlew lintDebug
+
+      - name: Upload lint reports
         uses: actions/upload-artifact@master
         with:
-          name: android-lint.html
+          name: android-lint-reports
           path: build/reports/*.html
