@@ -1,12 +1,8 @@
 #!/bin/sh
 
 # Run the script and get the return code if successful of if fails
-./scripts/commit-filter-check.sh && rc=$? || rc=$?
-echo return code : $rc
-if $rc == 1
-then
-	echo "Script return code 1 so commit failed"
-	exit 1
-else
-	echo "No error returned so commit successful"
+if ! grep -qE ^"feat|fix" "$1";then
+    cat "$MSG"
+    echo "Commit message must begin with the words 'feat' or 'fix'"
+    exit 1
 fi
