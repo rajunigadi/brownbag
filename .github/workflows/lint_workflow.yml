@@ -1,0 +1,24 @@
+name: Lint Checks
+
+on:
+  push:
+    branches:
+      - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Tags
+        run: git fetch --prune --unshallow --tags
+      - name: Generate Debug APK
+        env:
+          VERSION_CODE: ${{ github.run_number}}
+        run: ./gradlew lint
+      - name: Upload APK
+        uses: actions/upload-artifact@master
+        with:
+          name: android-lint.html
+          path: build/reports/*.html
