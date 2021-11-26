@@ -73,3 +73,4 @@ commit_message_check (){
 
 # Calling the function
 commit_message_check
+
